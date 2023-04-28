@@ -40,8 +40,8 @@ jobs:
         
       - name: Create aws exports
         run: |
-          touch admin/src/aws-exports.js
-          cp .github/exports.js admin/src/aws-exports.js   
+          touch src/aws-exports.js
+          cp .github/exports.js src/aws-exports.js   
       - name: Cypress run
         uses: cypress-io/github-action@v2.3.8
         with:
@@ -49,5 +49,5 @@ jobs:
           build: yarn build
           start: yarn start
           install: yarn --no-frozen-lockfile
-          working-directory: admin/
+          working-directory: src/
           wait-on: 'http://127.0.0.1:3000'
