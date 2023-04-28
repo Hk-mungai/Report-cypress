@@ -1,53 +1,42 @@
-# This workflow will run tests using node and then publish a package to GitHub Packages when a release is created
-# For more information see: https://docs.github.com/en/actions/publishing-packages/publishing-nodejs-packages
+# This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-action
 
-name: Generate cypress report
+
+name: Generate Cypress Report
 on:
   push:
-    branches: 
-      -'master'
-      
+    branches:
+      - 'master'
 
-jobs:jlbugo
-  test:
-    runs-on: ubuntu-latest
+jobs:
+  cypress-test:
+    name: Run on Chrome 83
+    runs-on: ubuntu-18.04
+    container: cypress/browsers:node12.18.0-chrome83-ff77
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-        with:   
-          fetch-depth: 2
-      - name: Setup nodejs
-        uses: actions/setup-node@v1
-        with:
-          node-version: "16.x"
-          
-      - name: Install yarn
-        run: npm i -g yarn
+      - uses: actions/checkout@v2
 
-      - name: Get yarn cache directory path
-        id: yarn-cache-dir-path
-        run: echo "dir=$(yarn cache dir)" >> $GITHUB_OUTPUT
-
-      - uses: actions/cache@v3
-        id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
-        with:
-          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-yarn-
-      - name: Install deps
-        run: yarn --cwd admin install
-        
-      - name: Create aws exports
+      - name: Install cypress and verify
         run: |
-          touch admin/src/aws-exports.js
-          cp .github/exports.js admin/src/aws-exports.js   
-      - name: Cypress run
-        uses: cypress-io/github-action@v2.3.8
+          npm ci
+          $(npm bin)/cypress verify
+      - name: Run Cypress tests
+        run: npm run test:chrome
+        continue-on-error: true
+
+      - name: Copy test execution videos and screenshots
+        run: |
+          mkdir public
+          cp -r cypress/videos public/videos
+          cp -r cypress/screenshots public/screenshots
+      - name: Merge test reports
+        run: npm run combine:report
+
+      - name: Generate HTML report
+        run: npm run generate:report
+      
+      - name: Deploy report page to GitHub Page
+        uses: peaceiris/actions-gh-pages@v3
         with:
-          config-file: cypress.config.js
-          build: yarn build
-          start: yarn start
-          install: yarn --no-frozen-lockfile
-          working-directory: admin/
-          wait-on: 'http://127.0.0.1:3000'
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./public
