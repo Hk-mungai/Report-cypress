@@ -22,7 +22,7 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  jobs:
+  
   test:
     runs-on: ubuntu-latest
     steps:
