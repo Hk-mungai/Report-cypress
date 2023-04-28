@@ -1,0 +1,53 @@
+# This workflow will run tests using node and then publish a package to GitHub Packages when a release is created
+# For more information see: https://docs.github.com/en/actions/publishing-packages/publishing-nodejs-packages
+
+name: Generate cypress report
+on:
+  push:
+    branches: 
+      -'master'
+      
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:   
+          fetch-depth: 2
+      - name: Setup nodejs
+        uses: actions/setup-node@v1
+        with:
+          node-version: "16.x"
+          
+      - name: Install yarn
+        run: npm i -g yarn
+
+      - name: Get yarn cache directory path
+        id: yarn-cache-dir-path
+        run: echo "dir=$(yarn cache dir)" >> $GITHUB_OUTPUT
+
+      - uses: actions/cache@v3
+        id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
+        with:
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+      - name: Install deps
+        run: yarn --cwd admin install
+        
+      - name: Create aws exports
+        run: |
+          touch admin/src/aws-exports.js
+          cp .github/exports.js admin/src/aws-exports.js   
+      - name: Cypress run
+        uses: cypress-io/github-action@v2.3.8
+        with:
+          config-file: cypress.config.js
+          build: yarn build
+          start: yarn start
+          install: yarn --no-frozen-lockfile
+          working-directory: admin/
+          wait-on: 'http://127.0.0.1:3000'
