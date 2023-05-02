@@ -1,4 +1,4 @@
-# instrument-example ![check code coverage](https://img.shields.io/badge/code--coverage-75%25-blue)
+# instrument-example ![check-code-coverage](https://img.shields.io/badge/code--coverage-50%-brightgreen)
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
