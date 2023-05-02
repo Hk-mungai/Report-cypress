@@ -39,7 +39,7 @@ jobs:
         
       - name: Create aws exports
         run: |
-          touch admin/src/aws-exports.js
+          touch src/aws-exports.js
           cp .src/aws-exports.js   
       - name: Cypress run
         uses: cypress-io/github-action@v2.3.8
