@@ -54,7 +54,5 @@ jobs:
       - name: Get Coverage summary
         run: npx nyc report --reporter=text-summary
      
-      - name: Update Code Coverage badge
-        run: node bin/update-badge
-      
+     
      
