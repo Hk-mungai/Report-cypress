@@ -49,7 +49,7 @@ jobs:
           start: yarn start
           install: yarn --no-frozen-lockfile
           wait-on: 'http://127.0.0.1:3000'
-      - name: Merge Test Reports
+      - name: Get Test Reports
         run: npx nyc report
       - name: Get Coverage summary
         run: npx nyc report --reporter=text-summary
