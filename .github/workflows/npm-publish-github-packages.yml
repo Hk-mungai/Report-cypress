@@ -40,7 +40,7 @@ jobs:
       - name: Create aws exports
         run: |
           touch src/aws-exports.js
-          cp .github/exports.js src/aws-exports.js    
+          cp .github/workflows/exports.js src/aws-exports.js    
       - name: Cypress run
         uses: cypress-io/github-action@v2.3.8
         with:
