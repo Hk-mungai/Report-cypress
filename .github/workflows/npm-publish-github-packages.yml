@@ -53,6 +53,12 @@ jobs:
         run: npx nyc report
       - name: Get Coverage summary
         run: npx nyc report --reporter=text-summary
+      - name: Set code coverage commit status
+        run: npx -p check-code-coverage set-gh-status
+        
+      - name: Update Code Coverage badge
+        run: update-badge
+      
      
      
      
