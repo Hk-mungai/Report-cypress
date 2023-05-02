@@ -6,7 +6,7 @@ name: Generate Cypress Report
 on:
   push:
     branches:
-      - 'main'
+      - 'master'
 
 jobs:
   cypress-test:
@@ -15,6 +15,7 @@ jobs:
     container: cypress/browsers:node12.18.0-chrome83-ff77
     steps:
       - uses: actions/checkout@v2
+
 
       - name: Install cypress and verify
         run: |
@@ -34,7 +35,7 @@ jobs:
 
       - name: Generate HTML report
         run: npm run generate:report
-      
+
       - name: Deploy report page to GitHub Page
         uses: peaceiris/actions-gh-pages@v3
         with:
