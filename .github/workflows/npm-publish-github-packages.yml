@@ -59,7 +59,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         
       - name: Update Code Coverage badge
-        run: update-badge
+        run: node bin/update-badge
       
      
      
