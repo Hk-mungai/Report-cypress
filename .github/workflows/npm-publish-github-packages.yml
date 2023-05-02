@@ -50,4 +50,4 @@ jobs:
           install: yarn --no-frozen-lockfile
           wait-on: 'http://127.0.0.1:3000'
       - name: Merge Test Reports
-        run: npm run combine:report
+        run: react-scripts test --coverage
