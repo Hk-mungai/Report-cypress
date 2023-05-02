@@ -10,6 +10,7 @@ describe('frontend',function () {
   })            
   it('Loads & reloads succesfully', function() {
 
+    
       cy.title().should("eq","Jumba")
       cy.reload();
       cy.title().should("eq","Jumba")   
