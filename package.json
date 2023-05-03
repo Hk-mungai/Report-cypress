@@ -1,3 +1,4 @@
+
 {
   "name": "istanbul-test-app",
   "version": "0.1.0",
@@ -14,6 +15,7 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
+  
     "start": "react-scripts -r @cypress/instrument-cra start",
     "build": "react-scripts build",
     "test": "nyc cypress run",
@@ -21,7 +23,10 @@
     "dev": "start-test 3000 cy:open",
     "cy:open": "cypress open",
     "cy:run": "cypress run",
-    "coverage": "react-scripts test --coverage"
+    "coverage": "react-scripts test --coverage",
+    "report:merge": "mochawesome-merge cypress/results/json/*.json > index.json",
+    "reportDir": "cypress/reports/mochawesome-report"
+
   },
   "eslintConfig": {
     "extends": [
@@ -50,8 +55,13 @@
     "babel-plugin-istanbul": "^6.1.1",
     "check-code-coverage": "^1.10.4",
     "cypress": "^12.11.0",
+    "cypress-multi-reporters": "^1.6.3",
+    "mocha": "^10.2.0",
+    "mochawesome": "^7.1.3",
     "nyc": "^15.1.0"
   },
   "author": "",
   "license": "ISC"
 }
+
+
