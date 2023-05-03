@@ -6,6 +6,16 @@ on:
   pull_request:
     branches:
       - 'main'
+      - 'Hk-mungai-patch-3'
+      - 'Hk-mungai-patch-2'
+      - 'Hk-mungai-patch-1'
+  push:
+    branches: 
+      - 'main'
+      - 'Hk-mungai-patch-3'
+      - 'Hk-mungai-patch-2'
+      - 'Hk-mungai-patch-1'
+
 
 jobs:
    test:
