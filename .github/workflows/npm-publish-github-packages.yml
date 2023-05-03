@@ -68,8 +68,6 @@ jobs:
         env: 
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           
-      - name: Merge test results into one
-        run: npm run report:merge
       - name: Generate HTML report
         run: npm run report:generate
       - name: Deploy report page
