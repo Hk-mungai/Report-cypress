@@ -1,9 +1,9 @@
 # This workflow will run tests using node and then publish a package to GitHub Packages when a release is created
 # For more information see: https://docs.github.com/en/actions/publishing-packages/publishing-nodejs-packages....
 
-name: Generate Cypress Report
+name: code-coverage
 on:
-  push:
+  pull_request:
     branches:
       - 'main'
 
@@ -57,13 +57,6 @@ jobs:
         run: npx -p check-code-coverage set-gh-status
         env: 
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: Check coverage change from README 
-        run: node bin/set-gh-status --check-against-readme
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        
-      - name: Update Code Coverage badge
-        run: node bin/update-badge
       
      
      
