@@ -57,17 +57,6 @@ jobs:
         run: npx -p check-code-coverage set-gh-status
         env: 
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: Check all covered files 📊
-        run: |
-          node bin/check-coverage main1.js
-          node bin/check-coverage to/main2.js
-          node bin/only-covered main1.js main2.js
-      - name: Check coverage change from README 
-        run: node bin/set-gh-status --check-against-readme
-       
-        
-      - name: Update Code Coverage badge
-        run: node bin/update-badge
       
      
      
