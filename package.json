@@ -14,7 +14,6 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-  
     "start": "react-scripts -r @cypress/instrument-cra start",
     "build": "react-scripts build",
     "test": "nyc cypress run",
@@ -24,7 +23,6 @@
     "cy:run": "cypress run",
     "coverage": "react-scripts test --coverage",
     "report:merge": "mochawesome-merge cypress/results/json/*.json > index.json"
-
   },
   "eslintConfig": {
     "extends": [
@@ -56,6 +54,7 @@
     "cypress-multi-reporters": "^1.6.3",
     "mocha": "^10.2.0",
     "mochawesome": "^7.1.3",
+    "mochawesome-merge": "^4.3.0",
     "nyc": "^15.1.0"
   },
   "author": "",
